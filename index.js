@@ -26,23 +26,18 @@ const questions = [
     },
     {
         type: 'input',
-        name: 'tableOfContents',
-        message: 'If desired, add a table of contents here: ',
-    },
-    {
-        type: 'input',
         name: 'installation',
-        message: 'What are the steps required to install your project? Please provide step-by-step installation instructions: ',
+        message: 'What are the steps required to install your project? ',
     },
     {
         type: 'input',
         name: 'usage',
-        message: 'Please provide instructions and examples for use of your project: ',
+        message: 'Please provide instructions and examples for the use of your project: ',
     },
     {
         type: 'input',
         name: 'license',
-        message: 'Please include the license you are using for this project: ',
+        message: 'Please include the license you are using for this project, if applicable: ',
     },
     {
         type: 'input',
@@ -69,9 +64,4 @@ function init() {
         });
 }
 
-// Function call to initialize app
 init();
-
-/*
-WHEN I click on the links in the Table of Contents I am taken to the corresponding section of the README
-*/
