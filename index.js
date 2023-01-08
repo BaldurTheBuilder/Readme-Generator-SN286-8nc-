@@ -6,42 +6,42 @@ const fs = require('fs');
 const questions = [
     {
         type: 'input',
-        name: 'Title',
+        name: 'title',
         message: 'Please enter the title for your README: ',
     },
     {
         type: 'input',
-        name: 'Description',
+        name: 'description',
         message: 'Provide a short description explaining the what, why, and how of your project: ',
     },
     {
         type: 'input',
-        name: 'Table of Contents',
+        name: 'tableOfContents',
         message: '(optional) If your README is long, please add a table of contents here: ',
     },
     {
         type: 'input',
-        name: 'Installation',
+        name: 'installation',
         message: 'What are the steps required to install your project? Please provide a step-by-step description of how to get the development environment running: ',
     },
     {
         type: 'input',
-        name: 'Usage',
+        name: 'usage',
         message: 'Please provide instructions and examples for use: ',
     },
     {
         type: 'input',
-        name: 'License',
+        name: 'license',
         message: 'Please include any licenses you are using for this project: ',
     },
     {
         type: 'input',
-        name: 'Contributing',
+        name: 'contributing',
         message: '(optional) If you want others to be able to contribute to this project, please provide instructions on how they may do so here: ',
     },
     {
         type: 'input',
-        name: 'Tests',
+        name: 'tests',
         message: '(optional) If you want to create tests for your application, please provide examples on how to run them here: ',
     },
     {
@@ -51,29 +51,6 @@ const questions = [
     },
 ];
 
-// TODO: Create a function to write README file
-const generateReadMe = (title, description, tableOfContents, installation, usage, license, contributing, tests, userQuestions) => {
-    //WHEN I enter my project title it is displayed as the title of the README
-    //WHEN I enter a description, installation instructions, usage information, contribution guidelines, and test instructions this information is added to various sections.
-    `# ${title}
-    ## Description
-    ${description}
-    ## Table of Contents
-    ${tableOfContents}
-    ## Installation
-    ${installation}
-    ## Usage
-    ${usage}
-    ## License
-    ${license}
-    ## How to Contribute
-    ${contributing}
-    ## Tests
-    ${tests}
-    ## Questions
-    ${userQuestions}
-    `
-}
 
 // TODO: Create a function to initialize app
 function init() {
@@ -81,14 +58,38 @@ function init() {
         //GIVEN a command-line application that accepts user input
         .prompt(questions)
         .then((data) => {
-            const readMeTitle = `${data.title}README.md`;
+            const readMeTitle = `${data.title.toLowerCase().split(' ').join('')}README.md`;
+            console.log(readMeTitle);
             const {title, description, tableOfContents, installation, usage, license, contributing, tests, userQuestions} = data;
-
             fs.writeFile(readMeTitle, generateReadMe(title, description, tableOfContents, installation, usage, license, contributing, tests, userQuestions), (err) =>
                 err ? console.log(err) : console.log('Success!')
             );
         });
 }
+
+// TODO: Create a function to write README file
+const generateReadMe = (title, description, tableOfContents, installation, usage, license, contributing, tests, userQuestions) => 
+    //WHEN I enter my project title it is displayed as the title of the README
+    //WHEN I enter a description, installation instructions, usage information, contribution guidelines, and test instructions this information is added to various sections.
+`# ${title}
+## Description
+    ${description}
+## Table of Contents
+    ${tableOfContents}
+## Installation
+    ${installation}
+## Usage
+    ${usage}
+## License
+    ${license}
+## How to Contribute
+    ${contributing}
+## Tests
+    ${tests}
+## Questions
+    ${userQuestions}`;
+
+
 
 // Function call to initialize app
 init();
