@@ -1,26 +1,101 @@
 // TODO: Include packages needed for this application
+const inquirer = require('inquirer');
+const fs = require('fs');
 
-// TODO: Create an array of questions for user input
-const questions = [];
+//the README.md is titled and has sections for: Description, Table of Contents, Installation, Usage, License, Contributing, Tests, and Questions
+const questions = [
+    {
+        type: 'input',
+        name: 'Title',
+        message: 'Please enter the title for your README: ',
+    },
+    {
+        type: 'input',
+        name: 'Description',
+        message: 'Provide a short description explaining the what, why, and how of your project: ',
+    },
+    {
+        type: 'input',
+        name: 'Table of Contents',
+        message: '(optional) If your README is long, please add a table of contents here: ',
+    },
+    {
+        type: 'input',
+        name: 'Installation',
+        message: 'What are the steps required to install your project? Please provide a step-by-step description of how to get the development environment running: ',
+    },
+    {
+        type: 'input',
+        name: 'Usage',
+        message: 'Please provide instructions and examples for use: ',
+    },
+    {
+        type: 'input',
+        name: 'License',
+        message: 'Please include any licenses you are using for this project: ',
+    },
+    {
+        type: 'input',
+        name: 'Contributing',
+        message: '(optional) If you want others to be able to contribute to this project, please provide instructions on how they may do so here: ',
+    },
+    {
+        type: 'input',
+        name: 'Tests',
+        message: '(optional) If you want to create tests for your application, please provide examples on how to run them here: ',
+    },
+    {
+        type: 'input',
+        name: 'userQuestions',
+        message: '(optional) If you wanted to provide answers to common questions concerning this project, please enter the Q/A here: ',
+    },
+];
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+const generateReadMe = (title, description, tableOfContents, installation, usage, license, contributing, tests, userQuestions) => {
+    //WHEN I enter my project title it is displayed as the title of the README
+    //WHEN I enter a description, installation instructions, usage information, contribution guidelines, and test instructions this information is added to various sections.
+    `# ${title}
+    ## Description
+    ${description}
+    ## Table of Contents
+    ${tableOfContents}
+    ## Installation
+    ${installation}
+    ## Usage
+    ${usage}
+    ## License
+    ${license}
+    ## How to Contribute
+    ${contributing}
+    ## Tests
+    ${tests}
+    ## Questions
+    ${userQuestions}
+    `
+}
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+    inquirer
+        //GIVEN a command-line application that accepts user input
+        .prompt(questions)
+        .then((data) => {
+            const readMeTitle = `${data.title}README.md`;
+            const {title, description, tableOfContents, installation, usage, license, contributing, tests, userQuestions} = data;
+
+            fs.writeFile(readMeTitle, generateReadMe(title, description, tableOfContents, installation, usage, license, contributing, tests, userQuestions), (err) =>
+                err ? console.log(err) : console.log('Success!')
+            );
+        });
+}
 
 // Function call to initialize app
 init();
 
-/*GIVEN a command-line application that accepts user input
 
-WHEN I am prompted for information about my application repository, a [good] README.md is generated
-the README.md is titled and has sections for: Description, Table of Contents, Installation, Usage, License, Contributing, Tests, and Questions
-
-WHEN I enter my project title it is displayed as the title of the README
-
-WHEN I enter a description, installation instructions, usage information, contribution guidelines, and test instructions
-THEN this information is added to the sections of the README entitled Description, Installation, Usage, Contributing, and Tests
+/*
+//WHEN I am prompted for information about my application repository, a [good] README.md is generated
 
 WHEN I choose a license for my application from a list of options
 THEN a badge for that license is added near the top of the README and a notice is added to the section of the README entitled License that explains which license the application is covered under
